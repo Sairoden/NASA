@@ -1,13 +1,19 @@
 {
-  "name": "nasa",
+  "name": "nasa-project",
   "version": "1.0.0",
   "description": "NASA Project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install-backend": "npm install --prefix backend",
+    "install-frontend": "npm install --prefix frontend",
+    "install": "npm run install-backend && npm run install-frontend",
+    "backend": "npm run dev --prefix backend",
+    "frontend": "npm start --prefix frontend",
+    "watch": "npm run backend & npm run frontend",
+    "deploy": "npm run build --prefix frontend && npm start --prefix backend",
+    "deploy-cluster": "npm run build --prefix frontend && npm run cluster --prefix backend",
+    "test": "npm test --prefix backend && npm test --prefix frontend"
   },
   "author": "Sairoden",
   "license": "ISC"
 }
-
-

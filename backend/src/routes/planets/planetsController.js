@@ -1,5 +1,7 @@
-const { planets } = require("../../models/planetsModel");
+const { Planet } = require("../../models/planetsModel");
 
-exports.getAllPlanets = (req, res) => {
+exports.getAllPlanets = async (req, res) => {
+  const planets = await Planet.find();
+  // .select("keplerName -_id");
   return res.status(200).send(planets);
 };

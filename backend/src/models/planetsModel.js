@@ -1,8 +1,13 @@
 const fs = require("fs");
 const path = require("path");
 const { parse } = require("csv-parse");
+const mongoose = require("mongoose");
 
-const habitablePlanets = [];
+const planetSchema = new mongoose.Schema({
+  keplerName: { type: String, required: true },
+});
+
+const Planet = mongoose.model("Planet", planetSchema);
 
 function isHabitablePlanet(planet) {
   return (
@@ -24,22 +29,41 @@ function loadPlanetsData() {
           columns: true,
         })
       )
-      .on("data", data => {
-        if (isHabitablePlanet(data)) {
-          habitablePlanets.push(data);
-        }
+      .on("data", async data => {
+        if (isHabitablePlanet(data)) savePlanets(data);
       })
       .on("error", err => {
         console.log(err);
         reject(err);
       })
-      .on("end", () => {
-        console.log(`${habitablePlanets.length} habitable planets found!`);
+      .on("end", async () => {
+        const planetCounts = await Planet.find().count();
+        console.log(`${planetCounts} habitable planets found!`);
         resolve();
       });
   });
 }
+
+const savePlanets = async planet => {
+  try {
+    await Planet.updateOne(
+      {
+        keplerName: planet.kepler_name,
+      },
+      {
+        keplerName: planet.kepler_name,
+      },
+      {
+        upsert: true,
+      }
+    );
+  } catch (err) {
+    console.error(`Could not save planets ${err}`);
+  }
+};
+
 module.exports = {
   loadPlanetsData,
-  planets: habitablePlanets,
+  Planet,
 };
+
