@@ -19,8 +19,8 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "public")));
 
 // Routers
-app.use("/api/planets", planetsRouter);
-app.use("/api/launches", launchesRouter);
+app.use("/api/v1/planets", planetsRouter);
+app.use("/api/v1/launches", launchesRouter);
 app.all("*", (req, res, next) => {
   return res
     .status(200)
@@ -28,3 +28,5 @@ app.all("*", (req, res, next) => {
 });
 
 module.exports = app;
+
+// 9 ka na

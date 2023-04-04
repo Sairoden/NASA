@@ -1,9 +1,5 @@
-const {
-  addNewLaunch,
-  existsLaunchWithId,
-  deleteLaunch,
-  Launch,
-} = require("../../models/launchesModel");
+const { Launch } = require("../../models/launchesModel");
+const { Planet } = require("../../models/planetsModel");
 
 const DEFAULT_FLIGHT_NUMBER = 100;
 
@@ -44,6 +40,10 @@ exports.createLaunch = async (req, res) => {
     launch.launchDate = new Date(launch.launchDate);
     if (isNaN(launch.launchDate))
       return res.status(400).send({ error: "Invalid launch date" });
+
+    const planet = await Planet.findOne({ keplerName: launch.target });
+
+    if (!planet) throw new Error("No matching planet was found");
 
     const newFlightNumber = (await getLatestFlightNumber()) + 1;
 
