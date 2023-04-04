@@ -13,7 +13,15 @@ const getLatestFlightNumber = async () => {
 
 exports.getAllLaunches = async (req, res) => {
   try {
-    const launches = await Launch.find().select("-_id -__v");
+    const page = Math.abs(req.query.page) || 1;
+    const limit = Math.abs(req.query.limit) || 0;
+    const skip = (page - 1) * limit;
+
+    const launches = await Launch.find()
+      .select("-_id -__v")
+      .skip(skip)
+      .limit(limit) 
+      .sort({ flightNumber: 1 });
     return res.status(200).send(launches);
   } catch (err) {
     return res.status(400).send({
