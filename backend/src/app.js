@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const morgan = require("morgan");
+const helmet = require("helmet");
 
 const planetsRouter = require("./routes/planets/planetsRouter");
 const launchesRouter = require("./routes/launches/launchesRouter");
@@ -12,11 +13,21 @@ const app = express();
 app.use(cors());
 
 // Middlewares
+app.use(helmet());
+
 app.use(morgan("dev"));
 app.use(express.json());
 
 // Serve public
 app.use(express.static(path.join(__dirname, "..", "public")));
+
+const checkLoggedIn = (req, res, next) => {
+  const isLoggedIn = true;
+
+  if (!isLoggedIn) return res.status(401).send({ error: "You must log in!" });
+
+  next();
+};
 
 // Routers
 app.use("/api/v1/planets", planetsRouter);
@@ -28,5 +39,3 @@ app.all("*", (req, res, next) => {
 });
 
 module.exports = app;
-
-// 13 ka na

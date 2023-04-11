@@ -25,3 +25,5 @@ const PORT = process.env.PORT || 8000;
     console.log(`Listening on ${PORT}...`);
   });
 })();
+
+// CI/CD - 4 ka na
