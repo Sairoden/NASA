@@ -10,7 +10,7 @@
     "backend": "npm start --prefix backend",
     "frontend": "npm start --prefix frontend",
     "watch": "npm run backend & npm run frontend",
-    "deploy": "npm run build --prefix frontend && npm start --prefix backend",
+    "deploy": "npm run build --prefix frontend",
     "deploy-cluster": "npm run build --prefix frontend && npm run cluster --prefix backend",
     "test": "npm test --prefix backend && npm test --prefix frontend"
   },
