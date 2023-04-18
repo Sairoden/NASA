@@ -7,7 +7,7 @@
     "install-backend": "npm install --prefix backend",
     "install-frontend": "npm install --prefix frontend",
     "install": "npm run install-backend && npm run install-frontend",
-    "backend": "npm run dev --prefix backend",
+    "backend": "npm start --prefix backend",
     "frontend": "npm start --prefix frontend",
     "watch": "npm run backend & npm run frontend",
     "deploy": "npm run build --prefix frontend && npm start --prefix backend",
