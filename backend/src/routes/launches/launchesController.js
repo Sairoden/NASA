@@ -20,7 +20,7 @@ exports.getAllLaunches = async (req, res) => {
     const launches = await Launch.find()
       .select("-_id -__v")
       .skip(skip)
-      .limit(limit) 
+      .limit(limit)
       .sort({ flightNumber: 1 });
     return res.status(200).send(launches);
   } catch (err) {
@@ -98,5 +98,3 @@ exports.deleteLaunch = async (req, res) => {
     });
   }
 };
-
-// 33 KA NA

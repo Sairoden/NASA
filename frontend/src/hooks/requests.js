@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:8000/api/v1";
+const API_URL =
+  "https://sairoden-nasa-project.onrender.com/api/v1" ||
+  "localhost:8000/api/v1";
 
 async function httpGetPlanets() {
   try {

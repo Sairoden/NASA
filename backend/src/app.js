@@ -12,6 +12,8 @@ const app = express();
 // Implement CORS
 app.use(cors());
 
+app.options("*", cors());
+
 // Middlewares
 app.use(helmet());
 
